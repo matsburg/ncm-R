@@ -28,6 +28,7 @@ class Rsource(Ncm2Source):  # pylint: disable=too-few-public-methods
             settings['col1_len'] = self.nvim.eval('g:ncm_r_column1_length')
             settings['col2_len'] = self.nvim.eval('g:ncm_r_column2_length')
             settings['col_layout'] = self.nvim.eval('g:ncm_r_column_layout')
+            settings['dt'] = self.nvim.eval('g:ncm_r_dt')
             settings['filetype'] = self.nvim.eval('&filetype')
 
             settings['nvimr_id'] = ''

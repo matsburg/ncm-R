@@ -159,13 +159,18 @@ def get_option(typed=''):
     return None
 
 
-def get_df_inside_brackets(typed=''):
+def get_df_inside_brackets(typed='', dt_option=0):
     """Return df name when cursor is inside brackets"""
 
     if not typed:
         return ''
 
-    df_brackets = re.compile(r'(\w+)\[[^\[\]]*,[^\[\]]*$')
+    # If the dt (data.table) option is set, then switch the regex so that it matches before a comma is typed
+    if dt_option:
+        df_brackets = re.compile(r'(\w+)\[[^\[\]]*$')
+    else:
+        df_brackets = re.compile(r'(\w+)\[[^\[\]]*,[^\[\]]*$')
+
     df_match = df_brackets.search(typed)
 
     if df_match:

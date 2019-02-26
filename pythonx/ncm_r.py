@@ -282,7 +282,7 @@ class Source(Rsource):  # pylint: disable=R0902
             return
 
         pipe = rlang.get_pipe(cur_buffer, lnum, col)
-        data = rlang.get_df_inside_brackets(ctx['typed'])
+        data = rlang.get_df_inside_brackets(ctx['typed'], dt_option = self._settings['dt'])
 
         self._info('word: "{}", func: "{}", pkg: {}, pipe: {}, data: {}'.format(
             word, func, pkg, pipe, data))
@@ -297,7 +297,7 @@ class Source(Rsource):  # pylint: disable=R0902
 
             matches = self.get_matches(word, pkg=pkg)
 
-        self.complete(ctx, ctx['startccol'], matches)
+        self.complete(ctx, ctx['startccol'], matches, refresh = 1)
 
 
 SOURCE = Source(vim)

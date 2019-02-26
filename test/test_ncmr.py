@@ -222,6 +222,17 @@ TEST = TestCase('Is ncm-R working inside Rmd chunk?',
 feedkeys(['$i'])
 TEST.ask()
 
+# ==== DATA.TABLE ==== #
+TEST = TestCase('Is ncm-R suggesting the sleep variable "extra" inside brackets and before a comma is typed?',
+                ['sleep[ext'])
+NVIM.feedkeys('A')
+TEST.ask()
+
+TEST = TestCase('Is ncm-R suggesting functions e.g. "median" inside brackets and after a comma is typed?',
+                ['sleep[, me'])
+NVIM.feedkeys('A')
+TEST.ask()
+
 # ==== IT'S  OVER ==== #
 TEST = TestCase(r'Testing is over \o/')
 TEST.ask()

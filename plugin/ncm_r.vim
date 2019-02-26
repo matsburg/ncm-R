@@ -10,3 +10,4 @@ let $NCM_R = 'TRUE'
 let g:ncm_r_column_layout = get(g:, 'ncm_r_column_layout', 1)
 let g:ncm_r_column1_length = get(g:, 'ncm_r_column1_length', 13)
 let g:ncm_r_column2_length = get(g:, 'ncm_r_column2_length', 11)
+let g:ncm_r_dt = get(g:, 'ncm_r_dt', 0)
