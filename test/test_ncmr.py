@@ -97,7 +97,7 @@ def feedkeys(keys):
         NVIM.feedkeys(key)
 
 # ==== ERRORS ==== #
-TEST = TestCase('Has ncm-R thrown an error?', ['li'])
+TEST = TestCase('Is ncm-R showing completions and not throwing an error?', ['li'])
 NVIM.feedkeys('A')
 TEST.ask()
 
