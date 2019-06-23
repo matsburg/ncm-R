@@ -223,14 +223,20 @@ feedkeys(['$i'])
 TEST.ask()
 
 # ==== DATA.TABLE ==== #
-TEST = TestCase('Is ncm-R suggesting the sleep variable "extra" inside brackets and before a comma is typed?',
-                ['sleep[ext'])
+send_rcmd("library('data.table'); sleep_dt <- as.data.table(sleep)")
+TEST = TestCase('Is ncm-R suggesting median?',
+                ['sleep_dt[, medi'])
 NVIM.feedkeys('A')
 TEST.ask()
 
-TEST = TestCase('Is ncm-R suggesting functions e.g. "median" inside brackets and after a comma is typed?',
-                ['sleep[, me'])
+TEST = TestCase('Is ncm-R suggesting the sleep variable "extra"?',
+                ['sleep_dt[ext'])
 NVIM.feedkeys('A')
+TEST.ask()
+
+TEST = TestCase('Is ncm-R suggesting the sleep variable "extra"?',
+                ['sleep_dt %>%', '  .[ext'])
+NVIM.feedkeys(DOWN + 'A')
 TEST.ask()
 
 # ==== IT'S  OVER ==== #

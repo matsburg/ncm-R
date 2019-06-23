@@ -16,9 +16,6 @@ call plug#end()
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 
-" For data.table completion behaviour
-let g:ncm_r_dt = 1
-
 " UltiSnips + NCM
 let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand_or_jump)"
 let g:UltiSnipsJumpForwardTrigger = "<Plug>(ultisnips_expand_or_jump)"

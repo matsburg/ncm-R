@@ -187,7 +187,6 @@ class Source(Rsource):  # pylint: disable=R0902
         :returns: list of ncm matches
         """
 
-        self.get_all_obj_matches()
         obj_m = self._obj_matches
 
         if pipe or data:
@@ -281,8 +280,12 @@ class Source(Rsource):  # pylint: disable=R0902
         if isinquot and func and not re.search('(library|require|data)', func):
             return
 
+        self.get_all_obj_matches()
         pipe = rlang.get_pipe(cur_buffer, lnum, col)
-        data = rlang.get_df_inside_brackets(ctx['typed'], dt_option = self._settings['dt'])
+        data = rlang.get_df_inside_brackets(ctx['typed'], obj_m=self._obj_matches)
+
+        if pipe and data == '.':
+            data = pipe
 
         self._info('word: "{}", func: "{}", pkg: {}, pipe: {}, data: {}'.format(
             word, func, pkg, pipe, data))
@@ -297,7 +300,7 @@ class Source(Rsource):  # pylint: disable=R0902
 
             matches = self.get_matches(word, pkg=pkg)
 
-        self.complete(ctx, ctx['startccol'], matches, refresh = 1)
+        self.complete(ctx, ctx['startccol'], matches, refresh=1)
 
 
 SOURCE = Source(vim)

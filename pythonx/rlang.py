@@ -159,21 +159,35 @@ def get_option(typed=''):
     return None
 
 
-def get_df_inside_brackets(typed='', dt_option=0):
+def get_df_inside_brackets(typed='', obj_m=[]):
     """Return df name when cursor is inside brackets"""
 
     if not typed:
         return ''
 
-    # If the dt (data.table) option is set, then switch the regex so that it matches before a comma is typed
-    if dt_option:
-        df_brackets = re.compile(r'(\w+)\[[^\[\]]*$')
-    else:
-        df_brackets = re.compile(r'(\w+)\[[^\[\]]*,[^\[\]]*$')
+    df_brackets = re.compile(r'([\w.]+)\[[^\[\]]*$')
 
     df_match = df_brackets.search(typed)
 
     if df_match:
-        return df_match.group(1)
+        full_match = df_match.group(0)
+        word = df_match.group(1)
+
+        if ',' in full_match:
+            return word
+
+        # Check if the object is a data.table or '.' (indicating it's referring
+        # to a data.frame or data.table being used in a pipe), if so then
+        # return it
+        if word == '.':
+            return word
+
+        try:
+            match_struct = [m.get('struct', '') for m in obj_m if m.get('word', '') == word][0]
+        except IndexError:
+            match_struct = ''
+
+        if match_struct == 'data.table':
+            return word
 
     return ''
